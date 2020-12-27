@@ -14,6 +14,9 @@ module.exports = {
       brand: {
         type: Sequelize.STRING
       },
+      description: {
+        type: Sequelize.STRING
+      },
       price: {
         type: Sequelize.DECIMAL
       },

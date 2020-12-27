@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcrypt');
+const saltRounds = 10; 
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -11,6 +13,8 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync('1q2w3e', salt);
 
     await queryInterface.bulkInsert('Users', 
     [
@@ -18,7 +22,7 @@ module.exports = {
        userName: 'john',
        firstName: 'John',
        lastName: 'Doe',
-       password: '1q2w3e',
+       password: hash,
        createdAt: new Date(),
        updatedAt: new Date(),
       },
@@ -26,7 +30,7 @@ module.exports = {
         userName: 'alex',
         firstName: 'Alex',
         lastName: 'Van',
-        password: '1q2w3e',
+        password: hash,
         createdAt: new Date(),
         updatedAt: new Date(),
        }
