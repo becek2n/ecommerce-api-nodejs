@@ -2,16 +2,6 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
-
     //product
     const product = await queryInterface.bulkInsert('Products', 
     [
@@ -30,19 +20,55 @@ module.exports = {
     [
       {
         product_id: product[0].id,
-        photo: '/assets/uploads/1.jpg',
+        photo: '/assets/uploads/item3.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         product_id: product[0].id,
-        photo: '/assets/uploads/2.jpg',
+        photo: '/assets/uploads/item1.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         product_id: product[0].id,
-        photo: '/assets/uploads/3.jpg',
+        photo: '/assets/uploads/item2.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ], {});
+
+    //product 2
+    const product2 = await queryInterface.bulkInsert('Products', 
+    [
+      {
+        name: 'Sport Dress',
+        brand: 'Sitlly',
+        description: '',
+        price: '19',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ], { returning: ['id'] });
+
+    //product image
+    await queryInterface.bulkInsert('ProductImages', 
+    [
+      {
+        product_id: product2[0].id,
+        photo: '/assets/uploads/item4.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        product_id: product2[0].id,
+        photo: '/assets/uploads/item3.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        product_id: product2[0].id,
+        photo: '/assets/uploads/item5.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       }

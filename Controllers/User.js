@@ -1,9 +1,9 @@
 'use strict';
 const db = require("../models");
-const sequelize = db.sequelize;
 const userModel = db.User;
+const bcrypt = require('bcrypt');
 
-exports.findAll = (req, res) => {
+exports.get = (req, res) => {
   userModel.findAll({ 
     raw: true
   })
@@ -15,27 +15,67 @@ exports.findAll = (req, res) => {
   });
 };
 
-exports.findById = (req, res) => {
-  userModel.findAll({ 
+//auth 
+exports.auth = (req, res) => {
+  //validate request
+  if(req.body.email === null || req.body.password === null){
+      res.status(500).json({
+          responseCode: 500,
+          responseMessage: "Error",
+          responseData: 'Email or password cannot be null!',
+      });
+  }
+
+  userModel.findOne({
+      raw:true,
+      where: {
+          email: req.body.email,
+      }
+  })
+  .then(data => {
+      if (!data){
+          res.status(200).json({
+              responseCode: 200,
+              responseMessage: "Not found",
+              responseData: data,
+          });
+      }else{
+          //compare password with async
+          bcrypt.compare(req.body.password, data.password, function(err, result){
+              //check result is true
+              if(result == true){
+                  res.status(200).json({
+                      responseCode: 200,
+                      responseMessage: "OK",
+                      responseData: data,
+                  });
+              }else{
+                  res.status(200).json({
+                      responseCode: 200,
+                      responseMessage: "Failed",
+                      responseData: 'Incorrect password!',
+                  });
+              }
+              
+          })
+          
+      }
+      
+  })
+  .catch(err => {
+      res.status(500).json({
+          responseCode: 500,
+          responseMessage: "Error",
+          responseData: err,
+      });
+  })
+}
+
+exports.findOne = (req, res) => {
+  userModel.findOne({ 
     raw: true, 
     where: {
       ID: req.params.id
-    }
-  })
-  .then(data => {
-    res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
-  })
-  .catch(err => {
-      res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
-  });
-};
-
-exports.findUserLogin = (req, res) => {
-  userModel.findAll({ 
-    raw: true, 
-    where: {
-      userName: req.body.user,
-      password: req.body.password
     }
   })
   .then(data => {
