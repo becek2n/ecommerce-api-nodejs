@@ -3,7 +3,7 @@
 module.exports = function(app) {
 
     var userController = require('../Controllers/User');
-    app.route('/user').post(userController.get);
+    app.route('/user').get(userController.get);
     app.route('/login').post(userController.auth);
    
 };
