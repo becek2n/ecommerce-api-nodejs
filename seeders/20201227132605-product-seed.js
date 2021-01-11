@@ -7,7 +7,6 @@ module.exports = {
     [
       {
         name: 'Evening Dress',
-        brand: 'Dorothy Parkins',
         description: '',
         price: '12',
         createdAt: new Date(),
@@ -43,7 +42,41 @@ module.exports = {
     [
       {
         name: 'Sport Dress',
-        brand: 'Sitlly',
+        description: '',
+        price: '19',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ], { returning: ['id'] });
+
+    //product image
+    await queryInterface.bulkInsert('ProductImages', 
+    [
+      {
+        product_id: product2[0].id,
+        photo: '/assets/uploads/item4.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        product_id: product2[0].id,
+        photo: '/assets/uploads/item3.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        product_id: product2[0].id,
+        photo: '/assets/uploads/item5.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ], {});
+
+    //product 3
+    const product3 = await queryInterface.bulkInsert('Products', 
+    [
+      {
+        name: 'Sport Dress',
         description: '',
         price: '19',
         createdAt: new Date(),
