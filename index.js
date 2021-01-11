@@ -15,7 +15,8 @@ app.use(fileUpload({
     createParentPath: true
 }));
 
-app.use(express.static(__dirname + '/Assets'));
+//read assets image
+app.use(express.static(__dirname + '/assets'));
 app.use(cors());
 
 app.get("/", (req, resp) => {

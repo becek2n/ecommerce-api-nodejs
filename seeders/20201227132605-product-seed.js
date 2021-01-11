@@ -11,7 +11,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    
+
     //product
     const product = await queryInterface.bulkInsert('Products', 
     [
