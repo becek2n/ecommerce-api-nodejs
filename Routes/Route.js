@@ -2,8 +2,14 @@
 
 module.exports = function(app) {
 
-    var userController = require('../Controllers/User');
+    //user
+    var userController = require('../Controllers/user');
     app.route('/user').get(userController.get);
     app.route('/login').post(userController.auth);
+
+    //product
+    var productController = require('../Controllers/product');
+    app.route('/product').get(productController.get);
+    app.route('/product/:id').get(productController.getId);
    
 };
