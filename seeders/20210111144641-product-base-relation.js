@@ -2,27 +2,33 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Brands', 
+    await queryInterface.bulkInsert('product_base_relations', 
     [
       {
-        name: 'Dorothy Perkins',
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        brand_id: 1,
+        category_id: 1,
+        collection_id: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
       },
       {
-        name: 'Sitlly',
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        brand_id: 1,
+        category_id: 1,
+        collection_id: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
       },
       {
-        name: "Levi's",
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        brand_id: 1,
+        category_id: 1,
+        collection_id: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
       }
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Brands', null, {});
+    await queryInterface.bulkDelete('product_base_relations', null, {});
   }
 };
