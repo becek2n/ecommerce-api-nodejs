@@ -1,11 +1,67 @@
 'use strict';
 const db = require("../models");
 const productModel = db.Product;
-const productImageModel = db.ProductImage;
+const brandModel = db.Brand;
 
 exports.get = (req, res) => {
   productModel.findAll({ 
-    raw: true
+    include: [
+      {
+        association: 'images'
+      },
+      { 
+        association: 'base_product',
+        include: [
+          {
+            association: 'category',
+          },
+          {
+            association: 'brand',
+          },
+          {
+            association: 'collection',
+          }
+        ]
+      },
+    ]
+  })
+  .then(data => {
+    res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
+  })
+  .catch(err => {
+      res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
+  });
+};
+
+exports.getBrand = (req, res) => {
+  brandModel.findAll({ 
+    include: [
+      {
+        association: 'brand_collections',
+      },
+      {
+        association: 'brand_categories',
+      }
+    ]
+  })
+  .then(data => {
+    res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
+  })
+  .catch(err => {
+      res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
+  });
+};
+
+exports.getCategory = (req, res) => {
+  db.Category.findAll({ 
+    include: [
+      {
+        model: db.Brand
+      },
+      {
+        model: db.Collection
+      }
+    ]
   })
   .then(data => {
     res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
@@ -20,9 +76,25 @@ exports.getId = (req, res) => {
     where: {
       id: req.params.id
     },
-    include: [{ 
-      association: 'images',
-    }]
+    include: [
+      {
+        association: 'images'
+      },
+      { 
+        association: 'base_product',
+        include: [
+          {
+            association: 'category',
+          },
+          {
+            association: 'brand',
+          },
+          {
+            association: 'collection',
+          }
+        ]
+      },
+    ]
   })
   .then(data => {
     res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});

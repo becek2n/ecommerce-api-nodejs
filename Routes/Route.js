@@ -11,5 +11,7 @@ module.exports = function(app) {
     var productController = require('../Controllers/product');
     app.route('/product').get(productController.get);
     app.route('/product/:id').get(productController.getId);
+    app.route('/brand').get(productController.getBrand);
+    app.route('/category').get(productController.getCategory);
    
 };
