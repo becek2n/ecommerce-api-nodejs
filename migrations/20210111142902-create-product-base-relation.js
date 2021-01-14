@@ -1,36 +1,36 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('product_base_relations', {
+    await queryInterface.createTable('ProductBaseRelations', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      brand_id: {
+      brandId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "brands",
+            tableName: "Brands",
           },
           key: 'id'
         }
       },
-      category_id: {
+      categoryId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "categories",
+            tableName: "Categories",
           },
           key: 'id'
         }
       },
-      collection_id: {
+      collectionId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "collections",
+            tableName: "Collections",
           },
           key: 'id'
         }
@@ -38,16 +38,14 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'created_at',
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'updated_at',
       }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('product_base_relations');
+    await queryInterface.dropTable('ProductBaseRelations');
   }
 };

@@ -16,23 +16,23 @@ module.exports = {
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync('1q2w3e', salt);
 
-    await queryInterface.bulkInsert('users', 
+    await queryInterface.bulkInsert('Users', 
     [
       {
         firstName: 'test',
         lastName: 'one',
         email: 'test1@mail.com',
         password: hash,
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         firstName: 'test',
         lastName: 'two',
         email: 'test2@mail.com',
         password: hash,
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
     ], {});
   },
@@ -44,6 +44,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete('users', null, {});
+    return queryInterface.bulkDelete('Users', null, {});
   }
 };
