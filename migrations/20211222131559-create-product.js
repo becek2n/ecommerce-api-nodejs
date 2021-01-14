@@ -29,6 +29,9 @@ module.exports = {
       discount: {
         type: Sequelize.DECIMAL
       },
+      thumbnail: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

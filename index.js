@@ -16,7 +16,7 @@ app.use(fileUpload({
 }));
 
 //read assets image
-app.use(express.static(__dirname + '/assets'));
+app.use(express.static(__dirname));
 app.use(cors());
 
 app.get("/", (req, resp) => {

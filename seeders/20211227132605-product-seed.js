@@ -10,6 +10,7 @@ module.exports = {
         name: 'Evening Dress',
         description: '',
         price: '12',
+        thumbnail: '/assets/uploads/item3.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       }
@@ -46,6 +47,7 @@ module.exports = {
         name: 'Sport Dress',
         description: '',
         price: '19',
+        thumbnail: '/assets/uploads/item4.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       }
@@ -82,6 +84,7 @@ module.exports = {
         name: 'Sport Dress',
         description: '',
         price: '19',
+        thumbnail: '/assets/uploads/item5.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       }
