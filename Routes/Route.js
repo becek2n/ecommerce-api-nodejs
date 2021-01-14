@@ -13,5 +13,6 @@ module.exports = function(app) {
     app.route('/product/:id').get(productController.getId);
     app.route('/brand').get(productController.getBrand);
     app.route('/category').get(productController.getCategory);
+    app.route('/collection').get(productController.getCollection);
    
 };
