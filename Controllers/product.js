@@ -13,17 +13,20 @@ exports.get = (req, res) => {
         association: 'base_product',
         include: [
           {
-            association: 'category',
+            association: 'brand',
           },
           {
-            association: 'brand',
+            association: 'category',
           },
           {
             association: 'collection',
           }
         ]
       },
-    ]
+    ],
+    order: [
+      ['name', 'ASC']
+    ],
   })
   .then(data => {
     res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
