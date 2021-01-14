@@ -36,63 +36,6 @@ exports.get = (req, res) => {
   });
 };
 
-exports.getBrand = (req, res) => {
-  brandModel.findAll({ 
-    include: [
-      {
-        model: db.Collection,
-      },
-      {
-        association: db.Category,
-      }
-    ]
-  })
-  .then(data => {
-    res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
-  })
-  .catch(err => {
-      res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
-  });
-};
-
-exports.getCategory = (req, res) => {
-  db.Category.findAll({ 
-    include: [
-      {
-        model: db.Brand
-      },
-      {
-        model: db.Collection
-      }
-    ]
-  })
-  .then(data => {
-    res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
-  })
-  .catch(err => {
-      res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
-  });
-};
-
-exports.getCollection = (req, res) => {
-  db.Collection.findAll({ 
-    include: [
-      {
-        model: db.Brand
-      },
-      {
-        model: db.Category
-      }
-    ]
-  })
-  .then(data => {
-    res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
-  })
-  .catch(err => {
-      res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
-  });
-};
-
 exports.getId = (req, res) => {
   productModel.findAll({ 
     where: {
