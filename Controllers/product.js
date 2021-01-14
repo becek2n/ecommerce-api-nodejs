@@ -7,19 +7,19 @@ exports.get = (req, res) => {
   productModel.findAll({ 
     include: [
       {
-        association: 'images'
+        model: db.ProductImage
       },
       { 
-        association: 'base_product',
+        model: db.ProductBaseRelation,
         include: [
           {
-            association: 'brand',
+            model: db.Brand,
           },
           {
-            association: 'category',
+            model: db.Category,
           },
           {
-            association: 'collection',
+            model: db.Collection,
           }
         ]
       },
@@ -40,10 +40,10 @@ exports.getBrand = (req, res) => {
   brandModel.findAll({ 
     include: [
       {
-        association: 'brand_collections',
+        model: db.Collection,
       },
       {
-        association: 'brand_categories',
+        association: db.Category,
       }
     ]
   })
@@ -100,23 +100,23 @@ exports.getId = (req, res) => {
     },
     include: [
       {
-        association: 'images'
+        model: db.ProductImage
       },
       { 
-        association: 'base_product',
+        model: db.ProductBaseRelation,
         include: [
           {
-            association: 'category',
+            model: db.Brand,
           },
           {
-            association: 'brand',
+            model: db.Category,
           },
           {
-            association: 'collection',
+            model: db.Collection,
           }
         ]
       },
-    ]
+    ],
   })
   .then(data => {
     res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
