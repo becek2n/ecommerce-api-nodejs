@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "keywords": [
-    "Teepme Indonesia"
+    ""
   ],
   "author": "djanuar aransyah",
   "license": "ISC",
@@ -25,9 +25,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/becek2n/teepme-api.git"
+    "url": "https://github.com/becek2n/ecommerce-api-nodejs.git"
   },
   "devDependencies": {
+    "nodemon": "^2.0.7",
     "sequelize-cli": "^6.2.0"
   }
 }

@@ -69,6 +69,42 @@ exports.getId = (req, res) => {
   });
 };
 
+exports.getCategory = (req, res) => {
+  productModel.findAll({ 
+    where: {
+      '$ProductBaseRelation.Category.name$': req.params.name,
+    },
+    include: [
+      {
+        model: db.ProductImage
+      },
+      { 
+        model: db.ProductBaseRelation,
+        include: [
+          {
+            model: db.Brand,
+          },
+          {
+            model: db.Category,
+          },
+          {
+            model: db.Collection,
+          }
+        ]
+      },
+    ],
+    order: [
+      ['name', 'ASC']
+    ],
+  })
+  .then(data => {
+    res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
+  })
+  .catch(err => {
+      res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
+  });
+};
+
 exports.create = (req, res) => {
   var _user = req.body;
   if(!_user.fullName || !_user.phoneNumber || !_user.email || !_user.password ){

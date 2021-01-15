@@ -18,7 +18,7 @@ module.exports = {
         name: 'Man',
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
+      },
     ], {});
   },
 
