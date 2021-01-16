@@ -3,115 +3,49 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     //product
-    const product = await queryInterface.bulkInsert('Products', 
-    [
-      {
-        productBaseRelationId: 1,
-        name: 'Evening Dress',
-        description: '',
-        price: '12',
-        thumbnail: '/assets/uploads/item3.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ], { returning: ['id'] });
+    let dataProduct = [];
+    for(let i = 1; i<16; i++){
+      dataProduct.push(
+        {
+          productBaseRelationId: 1,
+          name: 'Evening Dress ' + i,
+          description: '',
+          price: '12',
+          thumbnail: '/assets/uploads/item3.png',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }
+      );
+    }
+    const products = await queryInterface.bulkInsert('Products', dataProduct, { returning: ['id'] });
 
     //product image
-    await queryInterface.bulkInsert('ProductImages', 
-    [
-      {
-        productId: product[0].id,
-        photo: '/assets/uploads/item3.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        productId: product[0].id,
-        photo: '/assets/uploads/item1.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        productId: product[0].id,
-        photo: '/assets/uploads/item2.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ], {});
+    let dataProductImage = [];
+    for(let i = 1; i < products.length; i++){
+      dataProductImage.push(
+        {
+          productId: products[i].id,
+          photo: '/assets/uploads/item3.png',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          productId: products[i].id,
+          photo: '/assets/uploads/item1.png',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          productId: products[i].id,
+          photo: '/assets/uploads/item2.png',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }
+      );
+    }
 
-    //product 2
-    const product2 = await queryInterface.bulkInsert('Products', 
-    [
-      {
-        productBaseRelationId: 1,
-        name: 'Sport Dress',
-        description: '',
-        price: '19',
-        thumbnail: '/assets/uploads/item4.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ], { returning: ['id'] });
-
-    //product image
-    await queryInterface.bulkInsert('ProductImages', 
-    [
-      {
-        productId: product2[0].id,
-        photo: '/assets/uploads/item4.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        productId: product2[0].id,
-        photo: '/assets/uploads/item3.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        productId: product2[0].id,
-        photo: '/assets/uploads/item5.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ], {});
-
-    //product 3
-    const product3 = await queryInterface.bulkInsert('Products', 
-    [
-      {
-        productBaseRelationId: 1,
-        name: 'Sport Dress',
-        description: '',
-        price: '19',
-        thumbnail: '/assets/uploads/item5.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ], { returning: ['id'] });
-
-    //product image
-    await queryInterface.bulkInsert('ProductImages', 
-    [
-      {
-        productId: product3[0].id,
-        photo: '/assets/uploads/item4.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        productId: product3[0].id,
-        photo: '/assets/uploads/item3.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        productId: product3[0].id,
-        photo: '/assets/uploads/item5.png',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ], {});
+    await queryInterface.bulkInsert('ProductImages', dataProductImage, {});
+    
   },
 
   down: async (queryInterface, Sequelize) => {
