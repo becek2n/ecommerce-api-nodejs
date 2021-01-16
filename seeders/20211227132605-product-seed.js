@@ -4,14 +4,14 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     //product
     let dataProduct = [];
-    for(let i = 1; i<16; i++){
+    for(let i = 1; i<15; i++){
       dataProduct.push(
         {
           productBaseRelationId: 1,
           name: 'Evening Dress ' + i,
           description: '',
           price: '12',
-          thumbnail: '/assets/uploads/item3.png',
+          thumbnail: '/assets/uploads/item' + (Math.floor(Math.random() * 5) + 1) + '.png',
           createdAt: new Date(),
           updatedAt: new Date(),
         }
@@ -25,19 +25,19 @@ module.exports = {
       dataProductImage.push(
         {
           productId: products[i].id,
-          photo: '/assets/uploads/item3.png',
+          photo: '/assets/uploads/item' + (Math.floor(Math.random() * 5) + 1) + '.png',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           productId: products[i].id,
-          photo: '/assets/uploads/item1.png',
+          photo: '/assets/uploads/item' + (Math.floor(Math.random() * 5) + 1) + '.png',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           productId: products[i].id,
-          photo: '/assets/uploads/item2.png',
+          photo: '/assets/uploads/item' + (Math.floor(Math.random() * 5) + 1) + '.png',
           createdAt: new Date(),
           updatedAt: new Date(),
         }
