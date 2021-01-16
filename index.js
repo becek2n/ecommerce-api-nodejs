@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -28,7 +29,7 @@ var routesUser = require('./Routes/Route'); //importing route
 routesUser(app); 
 
 
-app.listen(port, () => {
-console.log(`App running on port ${port}.`)
+app.listen(process.env.APP_PORT, () => {
+console.log(`App running on port ${process.env.APP_PORT}.`)
 })
 

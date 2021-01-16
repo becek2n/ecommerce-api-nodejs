@@ -29,6 +29,9 @@ module.exports = {
       discount: {
         type: Sequelize.DECIMAL
       },
+      stock: {
+        type: Sequelize.INTEGER
+      },
       thumbnail: {
         type: Sequelize.STRING
       },
