@@ -16,7 +16,7 @@ module.exports = {
           description: faker.commerce.productDescription(),
           price: faker.commerce.price(),
           stock: (Math.floor(Math.random() * 30) + 2),
-          thumbnail: APP_URL +'/assets/uploads/item' + (Math.floor(Math.random() * 5) + 1) + '.png', //image in asset
+          thumbnail: APP_URL + APP_PORT +'/assets/uploads/item' + (Math.floor(Math.random() * 5) + 1) + '.png', //image in asset
           createdAt: new Date(),
           updatedAt: new Date(),
         }
