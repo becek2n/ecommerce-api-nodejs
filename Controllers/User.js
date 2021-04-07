@@ -2,17 +2,62 @@
 const db = require("../models");
 const userModel = db.User;
 const bcrypt = require('bcrypt');
+const Op = db.Sequelize.Op;
+require('dotenv').config()
 
 exports.get = (req, res) => {
-  userModel.findAll({ 
-    raw: true
+  const { page, size, search } = req.query;
+  const { limit, offset } = getPagination(page, size);
+
+  userModel.findAndCountAll({ 
+    where: {
+      [Op.or]: [
+        {
+          firstName : {
+            [Op.like] : `%${search}%`
+          },
+        },
+        {
+            lastName : {
+            [Op.like] : `%${search}%`
+          },
+        },
+        {
+        email : {
+          [Op.like] : `%${search}%`
+        },
+      }]
+      
+    },
+    order : [
+      'id'
+    ],
+    limit,
+    offset,
   })
   .then(data => {
-    res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data});
+    res.status(200).json({responseCode: 200, responseMessage: "Ok", 
+      responseData: getPagingData(data, 1, 5)
+    });
   })
   .catch(err => {
       res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
   });
+};
+
+const getPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: datas } = data;
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  return { totalItems, totalPages, currentPage, datas };
+};
+
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
 };
 
 //auth 
@@ -75,7 +120,7 @@ exports.findOne = (req, res) => {
   userModel.findOne({ 
     raw: true, 
     where: {
-      ID: req.params.id
+      id: req.params.id
     }
   })
   .then(data => {
@@ -110,3 +155,43 @@ exports.create = (req, res) => {
 };
 
 
+exports.update = (req, res) => {
+  try{
+    if(!req.body.id || !req.body.firstName || !req.body.lastName){
+      res.status(500).json({responseCode: 500, responseMessage: "Bad request to server!", responseData: null});
+    }else{
+      
+      if(req.files){
+        let _file = req.files.fileupload;
+        //save file to folder
+        _file.mv("./assets/uploads/" + _file.name);
+        var dataWithImage = {
+          image: process.env.APP_URL + ":" + process.env.APP_PORT + "/assets/uploads/" + _file.name,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName
+        };
+      }
+      
+      var dataWithoutImage = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
+      };
+      userModel.update(
+          (req.files) ? dataWithImage : dataWithoutImage,
+        {
+          where: { id: req.body.id }
+        }
+      )
+      .then(data => {
+        res.status(200).json({responseCode: 200, responseMessage: "Ok", responseData: data[0]});
+      })
+      .catch(err => {
+        res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
+      })
+
+    }
+  }catch(err){
+    res.status(500).json({responseCode: 500, responseMessage: "error", responseData: err.message});
+  }
+
+}

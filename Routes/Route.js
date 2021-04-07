@@ -5,7 +5,9 @@ module.exports = function(app) {
     //user
     var userController = require('../controllers/user');
     app.route('/user').get(userController.get);
+    app.route('/user/:id').get(userController.findOne);
     app.route('/login').post(userController.auth);
+    app.route('/user').put(userController.update);
 
     //product
     var productController = require('../controllers/product');
